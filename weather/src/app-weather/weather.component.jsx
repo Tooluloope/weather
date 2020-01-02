@@ -8,6 +8,7 @@ const Weather = ({city,country,temp,maxTemp ,minTemp,icon,desc }) => {
         <div className='weather'>
             <div className='city-head'> {city}, {country} </div>
             <div className='weather-logo'></div>
+            <i className={`wi ${icon} display-1`} />
             <h2 className='temp' >  {temp} &deg;</h2>
             <div className='temp-range'>
                 <span className='temp-min'>{minTemp} &deg;</span> <span className='temp-max'>{maxTemp} &deg;</span> 

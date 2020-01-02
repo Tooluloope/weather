@@ -3,6 +3,8 @@ import './App.css';
 import Weather from './app-weather/weather.component';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
+import "weather-icons/css/weather-icons.css";
+
 
 
 class App extends Component {
@@ -58,6 +60,8 @@ class App extends Component {
     }
   }
 
+  convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
+
   getWeather = async (e) => {
     e.preventDefault()
 
@@ -74,10 +78,10 @@ class App extends Component {
         this.setState({
           country: api_data_json.sys.country,
           region: api_data_json.name,
-          temp: api_data_json.main.temp,
-          maxTemp: api_data_json.main.temp_max,
+          temp: this.convertToCelsius(api_data_json.main.temp),
+          maxTemp: this.convertToCelsius(api_data_json.main.temp_max),
           desc: api_data_json.weather[0].description,
-          minTemp: api_data_json.main.temp_min,
+          minTemp: this.convertToCelsius(api_data_json.main.temp_min),
         })
   
         this.get_WeatherIcon(this.weatherIcon, api_data_json.weather[0].id);
