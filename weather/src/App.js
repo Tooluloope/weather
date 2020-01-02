@@ -25,12 +25,15 @@ class App extends Component {
     const country = e.target.elements.country.value
     const city = e.target.elements.city.value
 
-    
+    if (country && city) {
+      const api_key = '95b716c4f4eb1b64646c7d24b6626d58'
+      const api_data = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${api_key}`)
 
-    this.setState({
-      country: e.target.val,
-      region: undefined,
-    })
+      const api_data_json = await api_data.json()
+
+      console.log(api_data_json)
+
+    }
   }
 
   
