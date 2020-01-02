@@ -2,17 +2,17 @@ import React from 'react'
 import './weather.style.css'
 
 
-const Weather = () => {
+const Weather = ({city,country,temp,maxTemp ,minTemp,icon,desc }) => {
 
     return(
         <div className='weather'>
-            <div className='city-head'> Lagos, Nigeria </div>
+            <div className='city-head'> {city}, {country} </div>
             <div className='weather-logo'></div>
-            <h2 className='temp' >  35 &deg;</h2>
+            <h2 className='temp' >  {temp} &deg;</h2>
             <div className='temp-range'>
-                <span className='temp-min'>35 &deg;</span> <span className='temp-max'>35 &deg;</span> 
+                <span className='temp-min'>{minTemp} &deg;</span> <span className='temp-max'>{maxTemp} &deg;</span> 
             </div>
-            <h2 className='weather-desc'>Cloudy</h2>
+            <h2 className='weather-desc'>{desc}</h2>
         
         </div>
     )
