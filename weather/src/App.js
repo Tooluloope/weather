@@ -102,7 +102,7 @@ class App extends Component {
     if (country && city) {
 
       // hide your API key, 
-      const api_key = '95b716c4f4eb1b64646c7d24b6626d58'
+      const api_key = process.env.REACT_APP_WEATHER_API_KEY
 
       // Gets the response and also returns an error if any
       try {
