@@ -1,0 +1,89 @@
+.nav {
+    padding: 12px 0;
+    width: 100%;
+}
+
+.dark-mode.nav {
+    border-bottom: 1px solid black;
+    background-color: #282c34;
+    transition: background-color 0.25s ease-out;
+}
+.light-mode.nav {
+    background-color: #1abc9c;
+    transition: background-color 0.25s ease-out;
+}
+.grey {
+    color: grey;
+}
+.yellow {
+    color: yellow;
+}
+.slateblue {
+    color: slateblue;
+}
+
+.toggle {
+    float: right;
+    margin-right: 10%;
+    display: flex;
+}
+
+ span.icon {
+    font-size: 1.5em;
+    padding: 0 5px;
+}
+.tgl {
+    display: none;
+  }
+  .tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+    box-sizing: border-box;
+  }
+  .tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+    background: none;
+  }
+  .tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+    background: none;
+  }
+  .tgl + .tgl-btn {
+    outline: 0;
+    display: block;
+    width: 4em;
+    height: 2em;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+  }
+  .tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 50%;
+    height: 100%;
+  }
+  .tgl + .tgl-btn:after {
+    left: 0;
+  }
+  .tgl + .tgl-btn:before {
+    display: none;
+  }
+  .tgl:checked + .tgl-btn:after {
+    left: 50%;
+  }
+  
+  .tgl-light + .tgl-btn {
+    background: #f0f0f0;
+    border-radius: 2em;
+    padding: 2px;
+    transition: all .4s ease;
+  }
+  .tgl-light + .tgl-btn:after {
+    border-radius: 50%;
+    background: #fff;
+    transition: all .2s ease;
+  }
+  .tgl-light:checked + .tgl-btn {
+    background: #1abc9c;
+  }

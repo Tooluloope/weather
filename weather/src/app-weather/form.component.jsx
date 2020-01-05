@@ -1,17 +1,17 @@
 import React from 'react'
 import './form.style.css'
 
-const Form  = (props) => {
+const Form  = ({error, getweather, mode}) => {
 
     return(
-        <div className='form'>
-           { props.error ? 
+        <div className={` ${mode ? 'dark-mode': 'light-mode'} form `}>
+           { error ? 
                 <div className='error-pan'>
                     <h3 className='error-text'>Input a valid Country and City</h3>
                 </div>
              : null
             }
-            <form onSubmit = {props.getweather}>
+            <form onSubmit = {getweather}>
                 <label>
                      Country:
                      <input type="text" name="country" />

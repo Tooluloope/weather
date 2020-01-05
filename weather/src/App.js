@@ -4,6 +4,7 @@ import Weather from './app-weather/weather.component';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
 import "weather-icons/css/weather-icons.css";
+import Nav from './app-weather/nav.component';
 
 
 
@@ -18,9 +19,11 @@ class App extends Component {
       icon: undefined,
       desc: undefined,
       minTemp: undefined,
-      error: false
+      error: false,
+      darkMode: this.getMode()
     }
 
+    // Different weather icons for the project
     this.weatherIcon = {
       Thunderstorm: "wi-thunderstorm",
       Drizzle: "wi-sleet",
@@ -31,7 +34,29 @@ class App extends Component {
       Clouds: "wi-day-fog"
     };
   }
+  // This function gets the correct mode by either checking local storage or Users preference 
+  getMode = () => {
+    const isReturningUser = "dark" in localStorage;
+    const savedMode = JSON.parse(localStorage.getItem("dark"));
 
+     // if mode was saved --> dark / light
+     if (isReturningUser) {
+      return savedMode;
+    } else {
+      return false;
+    }
+  }
+
+  setMode = () => {
+    this.setState({darkMode: !this.state.darkMode})
+    this.storeInLocalStorage()
+  }
+  storeInLocalStorage = () => {
+    localStorage.setItem("dark", JSON.stringify(!this.state.darkMode));
+  }
+
+
+  // Get the correct weather icon to use based on the ID gotten from the API response
   get_WeatherIcon(icons, iconID) {
     switch (true) {
       case iconID >= 200 && iconID < 232:
@@ -60,17 +85,26 @@ class App extends Component {
     }
   }
 
+ 
+  // Since the temperature comes in kelvin from the API, this function converts it to Celcius
   convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
 
+
+    // This gets the weather response and set state for the different states
   getWeather = async (e) => {
     e.preventDefault()
 
+    // Gets the value of Country and city from form.component
     const country = e.target.elements.country.value
     const city = e.target.elements.city.value
 
+    // This would only run if both fields are filled else nothing would happen
     if (country && city) {
+
+      // hide your API key, 
       const api_key = '95b716c4f4eb1b64646c7d24b6626d58'
 
+      // Gets the response and also returns an error if any
       try {
         const api_data = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${api_key}`)
         const api_data_json = await api_data.json()
@@ -84,7 +118,8 @@ class App extends Component {
           minTemp: this.convertToCelsius(api_data_json.main.temp_min),
           error:false
         })
-  
+        
+        // set the icon state
         this.get_WeatherIcon(this.weatherIcon, api_data_json.weather[0].id);
   
         
@@ -98,12 +133,13 @@ class App extends Component {
 
   
   render() {
-    const {country, region, temp, maxTemp, minTemp, desc,icon, error} = this.state
+    const {country, region, temp, maxTemp, minTemp, desc,icon, error, darkMode} = this.state
     return (
       
-      <div className="App">
-        <Form  getweather = {this.getWeather} error = {error}  />
-        <Weather
+      <div className={` ${darkMode ? 'dark-mode': 'light-mode'} App`}>
+      <Nav mode = {darkMode}  getMode = {this.setMode}/>
+        <Form mode = {darkMode} getweather = {this.getWeather} error = {error}  />
+        <Weather mode = {darkMode}
         city = {region}
         country = {country}
         temp = {temp}

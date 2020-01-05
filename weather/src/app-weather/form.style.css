@@ -6,9 +6,15 @@
     overflow:hidden;
     border-radius:10px;
   }
-  form label {
+.dark-mode  form label {
 	font-size:14px;
 	color:darkgray;
+    cursor:pointer;
+    padding-left: 20px;
+}
+.light-mode  form label {
+	font-size:14px;
+	color:black;
     cursor:pointer;
     padding-left: 20px;
 }
