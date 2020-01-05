@@ -1,0 +1,61 @@
+.form{
+    padding-bottom: 20px;
+    margin:30px auto 0 auto;
+    padding:30px;
+    height:auto;
+    overflow:hidden;
+    border-radius:10px;
+  }
+  form label {
+	font-size:14px;
+	color:darkgray;
+    cursor:pointer;
+    padding-left: 20px;
+}
+label input {
+    margin:15px 10px;
+	padding:10px 10px;
+	outline:none;
+	border:1px solid #bbb;
+	border-radius:20px;
+	display:inline-block;
+}
+
+form input[type=text]:focus,
+form input[type="password"]:focus {
+	border-color:cornflowerblue;
+}
+
+.btn-get-weather {
+	padding:10px 30px;
+	width:auto;
+	background:#1abc9c;
+    border:none;
+    border-radius:10px;
+
+	color:white;
+	cursor:pointer;
+	display:inline-block;
+	-webkit-transition:0.2s ease all;
+	   -moz-transition:0.2s ease all;
+	    -ms-transition:0.2s ease all;
+	     -o-transition:0.2s ease all;
+	        transition:0.2s ease all;
+}
+
+.btn-get-weather:hover {
+	opacity:0.8;
+}
+
+.btn-get-weather:active {
+	opacity:0.4;
+}
+
+.error-pan {
+	color: rgb(233, 109, 60);
+}
+
+
+
+
+  

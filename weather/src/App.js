@@ -82,6 +82,7 @@ class App extends Component {
           maxTemp: this.convertToCelsius(api_data_json.main.temp_max),
           desc: api_data_json.weather[0].description,
           minTemp: this.convertToCelsius(api_data_json.main.temp_min),
+          error:false
         })
   
         this.get_WeatherIcon(this.weatherIcon, api_data_json.weather[0].id);
@@ -101,7 +102,7 @@ class App extends Component {
     return (
       
       <div className="App">
-        <Form getweather = {this.getWeather} error = {error}  />
+        <Form  getweather = {this.getWeather} error = {error}  />
         <Weather
         city = {region}
         country = {country}

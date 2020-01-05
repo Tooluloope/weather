@@ -5,6 +5,12 @@ const Form  = (props) => {
 
     return(
         <div className='form'>
+           { props.error ? 
+                <div className='error-pan'>
+                    <h3 className='error-text'>Input a valid Country and City</h3>
+                </div>
+             : null
+            }
             <form onSubmit = {props.getweather}>
                 <label>
                      Country:
