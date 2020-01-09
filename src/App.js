@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
 import "weather-icons/css/weather-icons.css";
 import Nav from './app-weather/nav.component';
+import { getMode } from './app-weather/weather.utils';
 
 
 
@@ -20,7 +21,7 @@ class App extends Component {
       desc: undefined,
       minTemp: undefined,
       error: false,
-      darkMode: this.getMode()
+      darkMode: getMode()
     }
 
     // Different weather icons for the project
@@ -34,37 +35,13 @@ class App extends Component {
       Clouds: "wi-day-fog"
     };
   }
-  // This function gets the correct mode by either checking local storage or Users preference 
-  getMode = () => {
-    const isReturningUser = "dark" in localStorage;
-    const userPreference = this.getUserPreference()
-    const savedMode = JSON.parse(localStorage.getItem("dark"));
-    
-    // if user has a default system reading mode
-    if(userPreference===true || userPreference===false ) {
-      
-      return userPreference;
-    }
-     // if mode was saved --> dark / light
-     else if (isReturningUser ) {
-      return savedMode;
-    } 
-    return false
-  }
-
-// Automatically get user prefered color mode
-  getUserPreference = () => {
-    if (window.matchMedia) {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches
-    }
-    return
-    
-  }
-
+ 
+// Set darkmode value
   setMode = () => {
     this.setState({darkMode: !this.state.darkMode})
     this.storeInLocalStorage()
   }
+  // Store darkMode value in local storage
   storeInLocalStorage = () => {
     localStorage.setItem("dark", JSON.stringify(!this.state.darkMode));
   }
