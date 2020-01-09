@@ -37,14 +37,28 @@ class App extends Component {
   // This function gets the correct mode by either checking local storage or Users preference 
   getMode = () => {
     const isReturningUser = "dark" in localStorage;
+    const userPreference = this.getUserPreference()
     const savedMode = JSON.parse(localStorage.getItem("dark"));
-
-     // if mode was saved --> dark / light
-     if (isReturningUser) {
-      return savedMode;
-    } else {
-      return false;
+    
+    // if user has a default system reading mode
+    if(userPreference===true || userPreference===false ) {
+      
+      return userPreference;
     }
+     // if mode was saved --> dark / light
+     else if (isReturningUser ) {
+      return savedMode;
+    } 
+    return false
+  }
+
+// Automatically get user prefered color mode
+  getUserPreference = () => {
+    if (window.matchMedia) {
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+    }
+    return
+    
   }
 
   setMode = () => {
