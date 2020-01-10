@@ -23,36 +23,36 @@ const getUserPreference = () => {
   }
 
 // Get the correct weather icon to use based on the ID gotten from the API response
-// export const get_WeatherIcon = (icons, iconID)=> {
-//     switch (true) {
-//       case iconID >= 200 && iconID < 232:
-//         this.setState({ icon: icons.Thunderstorm });
-//         break;
-//       case iconID >= 300 && iconID <= 321:
-//         this.setState({ icon: icons.Drizzle });
-//         break;
-//       case iconID >= 500 && iconID <= 521:
-//         this.setState({ icon: icons.Rain });
-//         break;
-//       case iconID >= 600 && iconID <= 622:
-//         this.setState({ icon: icons.Snow });
-//         break;
-//       case iconID >= 701 && iconID <= 781:
-//         this.setState({ icon: icons.Atmosphere });
-//         break;
-//       case iconID === 800:
-//         this.setState({ icon: icons.Clear });
-//         break;
-//       case iconID >= 801 && iconID <= 804:
-//         this.setState({ icon: icons.Clouds });
-//         break;
-//       default:
-//         this.setState({ icon: icons.Clouds });
-//     }
-//   }
+export const get_WeatherIcon = (icons, iconID)=> {
+    switch (true) {
+      case iconID >= 200 && iconID < 232:
+        this.setState({ icon: icons.Thunderstorm });
+        break;
+      case iconID >= 300 && iconID <= 321:
+        this.setState({ icon: icons.Drizzle });
+        break;
+      case iconID >= 500 && iconID <= 521:
+        this.setState({ icon: icons.Rain });
+        break;
+      case iconID >= 600 && iconID <= 622:
+        this.setState({ icon: icons.Snow });
+        break;
+      case iconID >= 701 && iconID <= 781:
+        this.setState({ icon: icons.Atmosphere });
+        break;
+      case iconID === 800:
+        this.setState({ icon: icons.Clear });
+        break;
+      case iconID >= 801 && iconID <= 804:
+        this.setState({ icon: icons.Clouds });
+        break;
+      default:
+        this.setState({ icon: icons.Clouds });
+    }
+  }
 
   // Different weather icons for the project
-  this.weatherIcon = {
+   export const weatherIcon = {
     Thunderstorm: "wi-thunderstorm",
     Drizzle: "wi-sleet",
     Rain: "wi-storm-showers",

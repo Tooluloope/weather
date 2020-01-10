@@ -5,7 +5,7 @@ import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
 import "weather-icons/css/weather-icons.css";
 import Nav from './app-weather/nav.component';
-import { getMode } from './app-weather/weather.utils';
+import { getMode, weatherIcon } from './app-weather/weather.utils';
 
 
 
@@ -25,15 +25,8 @@ class App extends Component {
     }
 
     // Different weather icons for the project
-    this.weatherIcon = {
-      Thunderstorm: "wi-thunderstorm",
-      Drizzle: "wi-sleet",
-      Rain: "wi-storm-showers",
-      Snow: "wi-snow",
-      Atmosphere: "wi-fog",
-      Clear: "wi-day-sunny",
-      Clouds: "wi-day-fog"
-    };
+   
+
   }
  
 // Set darkmode value
@@ -111,7 +104,7 @@ class App extends Component {
         })
         
         // set the icon state
-        this.get_WeatherIcon(this.weatherIcon, api_data_json.weather[0].id);
+        this.get_WeatherIcon(weatherIcon, api_data_json.weather[0].id);
   
         
       } catch (error) {
