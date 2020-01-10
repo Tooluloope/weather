@@ -106,7 +106,7 @@ class App extends Component {
 
       // Gets the response and also returns an error if any
       try {
-        const api_data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${api_key}`)
+        const api_data = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=95b716c4f4eb1b64646c7d24b6626d58`)
         const api_data_json = await api_data.json()
 
         this.setState({
