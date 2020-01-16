@@ -3,6 +3,7 @@ export const getMode = () => {
     const userPreference = getUserPreference()
     const savedMode = JSON.parse(localStorage.getItem("dark"));
     
+    
     // if user has a default system reading mode
     if(userPreference===true || userPreference===false ) {
       
@@ -26,28 +27,21 @@ const getUserPreference = () => {
 export const get_WeatherIcon = (icons, iconID)=> {
     switch (true) {
       case iconID >= 200 && iconID < 232:
-        this.setState({ icon: icons.Thunderstorm });
-        break;
+        return icons.Thunderstorm
       case iconID >= 300 && iconID <= 321:
-        this.setState({ icon: icons.Drizzle });
-        break;
+        return icons.Drizzle
       case iconID >= 500 && iconID <= 521:
-        this.setState({ icon: icons.Rain });
-        break;
+        return icons.Rain
       case iconID >= 600 && iconID <= 622:
-        this.setState({ icon: icons.Snow });
-        break;
+        return icons.Snow
       case iconID >= 701 && iconID <= 781:
-        this.setState({ icon: icons.Atmosphere });
-        break;
+        return icons.Atmosphere
       case iconID === 800:
-        this.setState({ icon: icons.Clear });
-        break;
+        return icons.Clear
       case iconID >= 801 && iconID <= 804:
-        this.setState({ icon: icons.Clouds });
-        break;
+        return icons.Clouds
       default:
-        this.setState({ icon: icons.Clouds });
+        return icons.Clouds
     }
   }
 

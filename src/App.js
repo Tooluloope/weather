@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Weather from './app-weather/weather.component';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
 import "weather-icons/css/weather-icons.css";
 import Nav from './app-weather/nav.component';
-import { getMode, weatherIcon } from './app-weather/weather.utils';
+import { getMode, weatherIcon, get_WeatherIcon } from './app-weather/weather.utils';
 
 
 
-class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      country: undefined,
+const App = () => {
+
+  // Initial state of variables
+  const initialState = {
+    country: undefined,
       region: undefined,
       temp: undefined,
       maxTemp: undefined,
@@ -21,62 +21,42 @@ class App extends Component {
       desc: undefined,
       minTemp: undefined,
       error: false,
-      darkMode: getMode()
-    }
-
-    // Different weather icons for the project
-   
-
-  }
- 
-// Set darkmode value
-  setMode = () => {
-    this.setState({darkMode: !this.state.darkMode})
-    this.storeInLocalStorage()
-  }
-  // Store darkMode value in local storage
-  storeInLocalStorage = () => {
-    localStorage.setItem("dark", JSON.stringify(!this.state.darkMode));
   }
 
+  // Reducer
+  // const reducer = (state, action) => {
+  //   const {name, value} = action
 
-  // Get the correct weather icon to use based on the ID gotten from the API response
-  get_WeatherIcon(icons, iconID) {
-    switch (true) {
-      case iconID >= 200 && iconID < 232:
-        this.setState({ icon: icons.Thunderstorm });
-        break;
-      case iconID >= 300 && iconID <= 321:
-        this.setState({ icon: icons.Drizzle });
-        break;
-      case iconID >= 500 && iconID <= 521:
-        this.setState({ icon: icons.Rain });
-        break;
-      case iconID >= 600 && iconID <= 622:
-        this.setState({ icon: icons.Snow });
-        break;
-      case iconID >= 701 && iconID <= 781:
-        this.setState({ icon: icons.Atmosphere });
-        break;
-      case iconID === 800:
-        this.setState({ icon: icons.Clear });
-        break;
-      case iconID >= 801 && iconID <= 804:
-        this.setState({ icon: icons.Clouds });
-        break;
-      default:
-        this.setState({ icon: icons.Clouds });
-    }
-  }
+  //   return {...state, [name]: value}
+  // }
 
- 
-  // Since the temperature comes in kelvin from the API, this function converts it to Celcius
-  convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
+  // UseReducer Hook
+  const [state, setState] = useState(initialState)
+
+  // Darkmode state
+  const [darkMode, setdarkMode] = useState(getMode())
+
+// Set dark mode value'
+const setMode = () => {
+  console.log(darkMode)
+  setdarkMode(!darkMode)
+  console.log(darkMode)
+  storeInLocalStorage()
+}
+
+// Store darkMode value in local storage
+const storeInLocalStorage = () => {
+  localStorage.setItem("dark", JSON.stringify(darkMode));
+}
 
 
-    // This gets the weather response and set state for the different states
-  getWeather = async (e) => {
+
+  // This gets the weather response and set state for the different states
+  const getWeather = async (e) => {
     e.preventDefault()
+
+    const convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
+
 
     // Gets the value of Country and city from form.component
     const country = e.target.elements.country.value
@@ -86,43 +66,38 @@ class App extends Component {
     if (country && city) {
 
       // hide your API key, 
-      const api_key = process.env.REACT_APP_WEATHER_API_KEY
+      // const api_key = process.env.REACT_APP_WEATHER_API_KEY
 
       // Gets the response and also returns an error if any
       try {
-        const api_data = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=95b716c4f4eb1b64646c7d24b6626d58`)
+        const api_data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=95b716c4f4eb1b64646c7d24b6626d58`)
         const api_data_json = await api_data.json()
 
-        this.setState({
+        setState({
           country: api_data_json.sys.country,
           region: api_data_json.name,
-          temp: this.convertToCelsius(api_data_json.main.temp),
-          maxTemp: this.convertToCelsius(api_data_json.main.temp_max),
+          temp: convertToCelsius(api_data_json.main.temp),
+          maxTemp: convertToCelsius(api_data_json.main.temp_max),
           desc: api_data_json.weather[0].description,
-          minTemp: this.convertToCelsius(api_data_json.main.temp_min),
-          error:false
+          minTemp: convertToCelsius(api_data_json.main.temp_min),
+          error:false, 
+          icon:  get_WeatherIcon(weatherIcon, api_data_json.weather[0].id)
         })
-        
-        // set the icon state
-        this.get_WeatherIcon(weatherIcon, api_data_json.weather[0].id);
-  
-        
       } catch (error) {
-        this.setState({error:true})
+        console.log(error)
+        setState({error:true})
       }
 
-     
+      
     }
   }
 
-  
-  render() {
-    const {country, region, temp, maxTemp, minTemp, desc,icon, error, darkMode} = this.state
+  const {country, region, temp, maxTemp, minTemp, desc,icon, error} = state
     return (
       
       <div className={` ${darkMode ? 'dark-mode': 'light-mode'} App`}>
-      <Nav mode = {darkMode}  getMode = {this.setMode}/>
-        <Form mode = {darkMode} getweather = {this.getWeather} error = {error}  />
+      <Nav mode = {darkMode}  getMode = {setMode}/>
+        <Form mode = {darkMode} getweather = {getWeather} error = {error}  />
         <Weather mode = {darkMode}
         city = {region}
         country = {country}
@@ -134,7 +109,7 @@ class App extends Component {
         />
       </div>
     );
-  }
+
 }
 
 export default App;
