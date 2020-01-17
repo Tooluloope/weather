@@ -9,6 +9,7 @@ import { getMode, weatherIcon, get_WeatherIcon } from './app-weather/weather.uti
 
 
 
+
 const App = () => {
 
   // Initial state of variables
