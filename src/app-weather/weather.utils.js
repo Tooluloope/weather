@@ -15,6 +15,7 @@ export const getMode = () => {
     } 
     return false
   }
+export const convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
 
 const getUserPreference = () => {
     if (window.matchMedia) {

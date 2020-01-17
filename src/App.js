@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Weather from './app-weather/weather.component';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
 import Form from './app-weather/form.component';
 import "weather-icons/css/weather-icons.css";
 import Nav from './app-weather/nav.component';
-import { getMode, weatherIcon, get_WeatherIcon } from './app-weather/weather.utils';
+import { getMode, weatherIcon, get_WeatherIcon, convertToCelsius } from './app-weather/weather.utils';
 
 
 
@@ -22,6 +22,8 @@ const App = () => {
       desc: undefined,
       minTemp: undefined,
       error: false,
+      lat:undefined,
+      lon:undefined
   }
 
   // Reducer
@@ -33,6 +35,9 @@ const App = () => {
 
   // UseReducer Hook
   const [state, setState] = useState(initialState)
+
+  // Forecast Data
+  const [forecast, setForcast] = useState(null)
 
   // Darkmode state
   const [darkMode, setdarkMode] = useState(getMode())
@@ -56,7 +61,6 @@ const storeInLocalStorage = () => {
   const getWeather = async (e) => {
     e.preventDefault()
 
-    const convertToCelsius = (kelvin) =>Math.round(parseInt(kelvin) - 273.15)
 
 
     // Gets the value of Country and city from form.component
@@ -82,8 +86,12 @@ const storeInLocalStorage = () => {
           desc: api_data_json.weather[0].description,
           minTemp: convertToCelsius(api_data_json.main.temp_min),
           error:false, 
-          icon:  get_WeatherIcon(weatherIcon, api_data_json.weather[0].id)
+          icon:  get_WeatherIcon(weatherIcon, api_data_json.weather[0].id),
+          lat: api_data_json.coord.lat,
+          lon: api_data_json.coord.lon,
         })
+
+
       } catch (error) {
         console.log(error)
         setState({error:true})
@@ -92,6 +100,18 @@ const storeInLocalStorage = () => {
       
     }
   }
+
+
+  // useEffect( () => {
+  //   const {lat, lon} = state
+
+  //   if (lat && lon) {
+  //     const api_data =  fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt={5}&appid=95b716c4f4eb1b64646c7d24b6626d58`);
+  //     const api_data_json =  api_data.json()
+  //     console.log(api_data_json)
+  //   }
+    
+  // }, [state])
 
   const {country, region, temp, maxTemp, minTemp, desc,icon, error} = state
     return (
